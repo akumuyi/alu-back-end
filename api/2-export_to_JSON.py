@@ -26,8 +26,7 @@ if __name__ == "__main__":
 
     # Define the URLs for employee tasks and user information
     tasks_url = (
-            f"https://jsonplaceholder.typicode.com/todos"
-            f"?userId={employee_id}"
+        f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}",
     )
     user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
 
@@ -58,8 +57,8 @@ if __name__ == "__main__":
         for task in tasks_data
     ]
 
-    # Create a dictionary with the user_id as the key
-    data_to_export = {employee_id: task_list}
+    # Create a list of dictionaries where each dictionary represents a task
+    data_to_export = task_list
 
     # Write the data to a JSON file with the filename USER_ID.json
     json_filename = f"{employee_id}.json"
