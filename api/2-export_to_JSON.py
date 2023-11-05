@@ -10,8 +10,6 @@ Args:
     employee_id (int): The ID of the employee for whom you want
     to analyze completed tasks and export the data in JSON format.
 
-Example:
-    $ python script_name.py 1
 """
 
 if __name__ == "__main__":
@@ -28,10 +26,9 @@ if __name__ == "__main__":
 
     # Define the URLs for employee tasks and user information
     tasks_url = (
-            "https://jsonplaceholder.typicode.com/todos"
-            "(userId={employee_id})"
+            f"https://jsonplaceholder.typicode.com/todos"
+            f"?userId={employee_id}"
     )
-
     user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
 
     # Create the request objects for tasks and user information
@@ -40,10 +37,8 @@ if __name__ == "__main__":
 
     try:
         # Get data from the server for tasks and user information
-        with (
-                urllib.request.urlopen(tasks_request) as tasks_response,
-                urllib.request.urlopen(user_request) as user_response,
-        ):
+        with urllib.request.urlopen(tasks_request) as tasks_response, \
+                urllib.request.urlopen(user_request) as user_response:
             tasks_data = json.load(tasks_response)
             user_data = json.load(user_response)
     except urllib.error.URLError as e:
@@ -54,16 +49,14 @@ if __name__ == "__main__":
     username = user_data.get("username", "")
 
     # Prepare the data in the specified JSON format
-    task_list = (
-            [
-                {
-                    "task": task["title"],
-                    "completed": task["completed"],
-                    "username": username,
-                }
-                for task in tasks_data
-            ]
-    )
+    task_list = [
+        {
+            "task": task["title"],
+            "completed": task["completed"],
+            "username": username,
+        }
+        for task in tasks_data
+    ]
 
     # Create a dictionary with the user_id as the key
     data_to_export = {employee_id: task_list}
