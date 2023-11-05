@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-import csv  # Import the CSV module
 
 """
 This script fetches and analyzes completed tasks for a
@@ -15,6 +14,7 @@ Args:
 """
 
 if __name__ == "__main__":
+    import csv
     import json
     import sys
     import urllib.request
