@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
 This script fetches and analyzes completed tasks for a
 given employee from a remote API and exports the data in CSV format.
@@ -35,10 +34,8 @@ if __name__ == "__main__":
     completed_tasks = [task for task in response_data1 if task['completed']]
     # Get Employee Name
     employee_name = response_data2["name"]
-    # Print output in the requested format; 'Employee EMPLOYEE_NAME is
-    # done with tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):'
-    print(f"Employee {employee_name} is done with
-          tasks({len(completed_tasks)}/{len(response_data1)}): ")
+    # Print output in the requested format Employee EMPLOYEE_NAME is
+    # done with tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS)
     # Create a CSV file and write the data to it
     with open(f"{employee_id}.csv", 'w', newline='') as csvfile:
         fieldnames = ["USER_ID", "USERNAME",
