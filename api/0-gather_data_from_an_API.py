@@ -1,5 +1,21 @@
 #!/usr/bin/python3
 
+"""
+This script fetches and analyzes completed tasks for a given employee from a remote API.
+
+It takes an employee's ID as a command-line argument, retrieves the tasks associated with that employee,
+and displays the number of completed tasks, total tasks, and the titles of completed tasks.
+
+Usage:
+    $ python script_name.py employee_id
+
+Args:
+    employee_id (int): The ID of the employee for whom you want to analyze completed tasks.
+
+Example:
+    $ python script_name.py 1
+"""
+
 if __name__ == "__main__":
     import json
     import sys
@@ -16,7 +32,7 @@ if __name__ == "__main__":
     request_object1 = urllib.request.Request(url1)
     request_object2 = urllib.request.Request(url2)
 
-    # Get data from server.
+    # Get data from the server.
     with urllib.request.urlopen(request_object1) as get_data1:
         response_data1 = json.load(get_data1)
     with urllib.request.urlopen(request_object2) as get_data2:
@@ -39,3 +55,4 @@ if __name__ == "__main__":
     # Print the completed tasks
     for task in completed_tasks:
         print("\t" + " " + task["title"])
+
