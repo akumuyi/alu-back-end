@@ -1,52 +1,59 @@
 #!/usr/bin/python3
 """
-This script fetches and analyzes completed tasks for a
-given employee from a remote API and exports the data in CSV format.
-It takes an employee's ID as a command-line argument, retrieves the
-tasks associated with that employee, displays the number of completed
-tasks, and exports the data to a CSV file in the requested format.
-Usage:
-    $ python script_name.py employee_id
-Args:
-    employee_id (int): The ID of the employee for whom you want to
-    analyze completed tasks and export to CSV.
+Using what you did in the task #0,
+extend your Python script to export
+data in the CSV format.
+
+Requirements:
+
+Records all tasks that are owned by this employee
+Format must be:
+"USER_ID","USERNAME","TASK_COMPLETED_STATUS","TASK_TITLE"
+File name must be: USER_ID.csv
 """
 
+import csv
+import json
+import requests
+import sys
 
-if __name__ == "__main__":
-    import csv
-    import json
-    import sys
-    import urllib.request
 
-    # Get the employee's ID from the sys module and format it into the URL
-    # https://jsonplaceholder.typicode.com/users/{employee_id}
-    employee_id = sys.argv[1]
-    url1 = f"https://jsonplaceholder.typicode.com/users/{employee_id}/todos"
-    url2 = f"https://jsonplaceholder.typicode.com/users/{employee_id}/"
+# using this url https://jsonplaceholder.typicode.com/todos/
+# add a query string of userId = 2 using the requests module
+url1 = "https://jsonplaceholder.typicode.com/todos"
+url2 = f"https://jsonplaceholder.typicode.com/users/{sys.argv[1]}"
+payload = {"userId": sys.argv[1]}
 
-    # Create the request objects.
-    request_object1 = urllib.request.Request(url1)
-    request_object2 = urllib.request.Request(url2)
 
-    # Get data from the server.
-    with urllib.request.urlopen(request_object1) as get_data1:
-        response_data1 = json.load(get_data1)
-    with urllib.request.urlopen(request_object2) as get_data2:
-        response_data2 = json.load(get_data2)
+# Make a HTTP request to the remote API to retrieve the employee's tasks.
+response = requests.get(url1, params=payload)
 
-    # Use a list comprehension to filter completed tasks.
-    completed_tasks = [task for task in response_data1 if task['completed']]
+# Decode the JSON response into a Python object.
+response_data1 = response.json()
 
-    # Get Employee Name
-    employee_name = response_data2["name"]
+# Get the employee's name from the second request.
+employee_name = requests.get(url2).json()["username"]
 
-    # Create a CSV file and write the data to it.
-    with open(f"{employee_id}.csv", "w", newline="") as csvfile:
-        writer = csv.writer(csvfile)
+# file name depends on id
+filename = f"{sys.argv[1]}.csv"
 
-        # Write data for each completed task.
-        for task in completed_tasks:
-            writer.writerow(
-                [employee_id, employee_name, task["completed"], task["title"]]
+
+with open(filename, "w", newline="") as csvfile:
+    # create a csv writer object
+    data_writer = (
+            csv.writer(
+                csvfile,
+                delimiter=",",
+                quotechar='"',
+                quoting=csv.QUOTE_ALL,
             )
+    )
+    # iterate through the first request only and use the value of some key
+    # and use the username of the second request for every iteration
+    for data in response_data1:
+        data_writer.writerow((
+            data["userId"],
+            employee_name,
+            data["completed"],
+            data["title"],
+        ))
