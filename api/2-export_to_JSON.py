@@ -13,6 +13,7 @@ Args:
 """
 
 if __name__ == "__main__":
+    import csv
     import json
     import sys
     import urllib.request
@@ -26,7 +27,8 @@ if __name__ == "__main__":
 
     # Define the URLs for employee tasks and user information
     tasks_url = (
-        f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}",
+        "https://jsonplaceholder.typicode.com/todos?"
+        "userId={employee_id}"
     )
     user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
 
