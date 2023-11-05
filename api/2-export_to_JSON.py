@@ -19,17 +19,11 @@ Example:
     $ python script_name.py 1
 """
 
-import json
-import sys
-import urllib.request
-
-
 def export_to_json(employee_id, tasks):
     """Exports the task data to JSON format.
 
     Args:
-        employee_id (int): The ID of the employee
-        for whom the tasks are owned by.
+        employee_id (int): The ID of the employee for whom the tasks are owned by.
         tasks (list): A list of tasks.
 
     Returns:
@@ -42,7 +36,9 @@ def export_to_json(employee_id, tasks):
             {
                 "task": task["title"],
                 "completed": task["completed"],
-                "username": task["username"],
+                # Check if the `username` key exists in the `task` dictionary.
+                # If it does, add the `username` key to the JSON data.
+                "username": task["username"] if "username" in task else None,
             }
             for task in tasks
         ],
