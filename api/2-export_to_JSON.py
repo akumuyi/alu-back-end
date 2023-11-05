@@ -1,15 +1,19 @@
 #!/usr/bin/python3
 """
-This script fetches and analyzes completed tasks for a given employee from a remote API and exports the data in JSON format.
+This script fetches and analyzes completed tasks for a
+given employee from a remote API and exports the data in JSON format.
 
-It takes an employee's ID as a command-line argument, retrieves the tasks associated with that employee,
-displays the number of completed tasks, and exports the data to a JSON file in the specified format.
+It takes an employee's ID as a command-line argument,
+retrieves the tasks associated with that employee,
+displays the number of completed tasks, and
+exports the data to a JSON file in the specified format.
 
 Usage:
     $ python script_name.py employee_id
 
 Args:
-    employee_id (int): The ID of the employee for whom you want to analyze completed tasks and export to JSON.
+    employee_id (int): The ID of the employee for
+    whom you want to analyze completed tasks and export to JSON.
 """
 
 
