@@ -21,7 +21,11 @@ import sys
 # using this url https://jsonplaceholder.typicode.com/todos/
 # add a query string of userId = 2 using the requests module
 url1 = "https://jsonplaceholder.typicode.com/todos"
-url2 = f"https://jsonplaceholder.typicode.com/users/{sys.argv[1]}"
+if len(sys.argv) > 1:
+    url2 = f"https://jsonplaceholder.typicode.com/users/{sys.argv[1]}"
+else:
+    print("Usage: python3 1-export_to_CSV.py <employee_id>")
+    sys.exit(1)
 payload = {"userId": sys.argv[1]}
 
 
