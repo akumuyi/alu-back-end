@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
 This script fetches and analyzes completed tasks for a given
 employee from a remote API
@@ -48,7 +47,7 @@ if __name__ == "__main__":
     # Employee EMPLOYEE_NAME is done with
     # tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):'
     print(f"Employee {employee_name} is done with \
-            tasks({no_of_comptasks}/{totalno_of_task}):")
+tasks({no_of_comptasks}/{totalno_of_task}):")
     # Second and N following lines display the title of
     # completed tasks: TASK_TITLE (with 1 tabulation and 1
     # space before the TASK_TITLE)
