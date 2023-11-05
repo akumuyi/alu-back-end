@@ -1,16 +1,20 @@
 #!/usr/bin/python3
 
 """
-This script fetches and analyzes completed tasks for a given employee from a remote API.
+This script fetches and analyzes completed tasks for a given 
+employee from a remote API.
 
-It takes an employee's ID as a command-line argument, retrieves the tasks associated with that employee,
-and displays the number of completed tasks, total tasks, and the titles of completed tasks.
+It takes an employee's ID as a command-line argument, retrieves 
+the tasks associated with that employee,
+and displays the number of completed tasks, total tasks, and the 
+titles of completed tasks.
 
 Usage:
     $ python script_name.py employee_id
 
 Args:
-    employee_id (int): The ID of the employee for whom you want to analyze completed tasks.
+    employee_id (int): The ID of the employee for whom you want 
+    to analyze completed tasks.
 
 Example:
     $ python script_name.py 1
@@ -48,10 +52,13 @@ if __name__ == "__main__":
     # Get Employee Name
     employee_name = response_data2["name"]
 
-    # Print output in the requested format; 'Employee EMPLOYEE_NAME is done with tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):'
+    # Print output in the requested format; 
+    #'Employee EMPLOYEE_NAME is done with
+    #tasks(NUMBER_OF_DONE_TASKS/TOTAL_NUMBER_OF_TASKS):'
     print(f"Employee {employee_name} is done with tasks({no_of_comptasks}/{totalno_of_task}):")
 
-    # Second and N following lines display the title of completed tasks: TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
+    # Second and N following lines display the title of 
+    #completed tasks: TASK_TITLE (with 1 tabulation and 1 space before the TASK_TITLE)
     # Print the completed tasks
     for task in completed_tasks:
         print("\t" + " " + task["title"])
