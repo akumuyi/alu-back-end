@@ -1,23 +1,4 @@
 #!/usr/bin/python3
-"""
-This script fetches and analyzes completed tasks for a given
-employee from a remote API and exports the data in JSON format.
-
-It takes an employee's ID as a command-line argument, retrieves
-the tasks associated with that employee,
-and displays the number of completed tasks, total tasks, and the
-titles of completed tasks.
-
-Usage:
-    $ python script_name.py employee_id
-
-Args:
-    employee_id (int): The ID of the employee for whom you want
-    to analyze completed tasks.
-
-Example:
-    $ python script_name.py 1
-"""
 
 
 def export_to_json(employee_id, tasks):
@@ -33,23 +14,21 @@ def export_to_json(employee_id, tasks):
     """
 
     json_data = {
-        "USER_ID": employee_id,
-        "tasks": [
+        employee_id: [
             {
                 "task": task["title"],
                 "completed": task["completed"],
-                # Check if the `username` key exists in the `task` dictionary.
-                # If it does, add the `username` key to the JSON data.
-                "username": task["username"] if "username" in task else None,
+                "username": task.get("username", None),
             }
             for task in tasks
-        ],
+        ]
     }
 
     return json.dumps(json_data, indent=4)
 
 
 if __name__ == "__main__":
+    import csv
     import json
     import sys
     import urllib.request
@@ -76,7 +55,7 @@ if __name__ == "__main__":
     ]
 
     # Get Employee Name
-    employee_name = response_data2["name"]
+    employee_name = response_data2["username"]
 
     # Export the task data to JSON format.
     json_data = export_to_json(employee_id, completed_tasks)
