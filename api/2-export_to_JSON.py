@@ -12,18 +12,22 @@ Args:
 
 """
 
-if __name__ == "__main__":
-    import csv
-    import json
-    import sys
-    import urllib.request
 
-    if len(sys.argv) != 2:
-        print("Usage: python script_name.py employee_id")
-        sys.exit(1)
+import json
+import sys
+import urllib.request
 
-    # Get the employee's ID from the command line argument
-    employee_id = sys.argv[1]
+
+def export_to_json(employee_id):
+    """Exports the employee's task data to JSON format.
+
+    Args:
+        employee_id (int): The ID of the employee for whom you want
+        to export the task data.
+
+    Returns:
+        str: A JSON string containing the employee's task data.
+    """
 
     # Define the URLs for employee tasks and user information
     tasks_url = (
@@ -39,7 +43,7 @@ if __name__ == "__main__":
     try:
         # Get data from the server for tasks and user information
         with urllib.request.urlopen(tasks_request) as tasks_response, \
-                urllib.request.urlopen(user_request) as user_response:
+             urllib.request.urlopen(user_request) as user_response:
             tasks_data = json.load(tasks_response)
             user_data = json.load(user_response)
     except urllib.error.URLError as e:
@@ -62,9 +66,28 @@ if __name__ == "__main__":
     # Create a list of dictionaries where each dictionary represents a task
     data_to_export = task_list
 
-    # Write the data to a JSON file with the filename USER_ID.json
+    # Return the JSON string containing the task data
+    return json.dumps(data_to_export, indent=4)\
+
+
+
+if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) != 2:
+        print("Usage: python script_name.py employee_id")
+        sys.exit(1)
+
+    # Get the employee's ID from the command line argument
+    employee_id = sys.argv[1]
+
+    # Export the employee's task data to JSON format
+    json_data = export_to_json(employee_id)
+
+    # Write the JSON data to a file
     json_filename = f"{employee_id}.json"
     with open(json_filename, "w") as json_file:
-        json.dump(data_to_export, json_file, indent=4)
+        json_file.write(json_data)
 
+    # Print the name of the JSON file to which the data was exported
     print(f"Data exported to {json_filename}")
